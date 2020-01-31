@@ -1,3 +1,6 @@
+import program from './cli';
+
 export function main(): void {
-    // Entry
+    program.parse(process.argv);
+    program.help();
 }
