@@ -1,0 +1,23 @@
+{
+  "name": "dotenv-profile",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "NODE_ENV=development ./node_modules/.bin/tsc --watch",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Cory Boyd <corytheboyd@gmail.com>",
+  "license": "MIT",
+  "bin": {
+    "dotenv-profiles": "./index.js"
+  },
+  "engines": {
+    "node": "12.14.1",
+    "npm": "6.13.7"
+  },
+  "devDependencies": {
+    "@types/node": "^13.7.0",
+    "typescript": "^3.7.5"
+  }
+}
