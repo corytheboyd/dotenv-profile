@@ -4,6 +4,11 @@
 
 ## Usage
 
+Create new profile
+```
+dotenv-profile create-profile <PROFILE NAME>
+```
+
 Set current profile
 ```
 dotenv-profile set-profile <PROFILE NAME>
