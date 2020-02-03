@@ -21,13 +21,11 @@ export default async function(profile: string): Promise<void> {
     }
 
     const directory = resolve(homedir(), '.config', 'dotenv-profile');
-
     mkdirp.sync(directory);
-
     const fileName = `.env.${profile}`;
     const filePath = resolve(directory, fileName);
 
     if (!existsSync(filePath)) {
-        writeFileSync(filePath, null);
+        writeFileSync(filePath, '');
     }
 }

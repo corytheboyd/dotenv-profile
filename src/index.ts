@@ -3,8 +3,9 @@ import createProfile from './commands/create-profile';
 import setProfile from './commands/set-profile';
 import open from './commands/open';
 import get from './commands/get';
+import listProfiles from './commands/list-profiles';
 
-export function main(): void {
+export async function main(): Promise<void> {
     program
         .command('create-profile <profile>')
         .description('Create a new profile')
@@ -25,9 +26,14 @@ export function main(): void {
         .description('Gets value of a variable for the current profile')
         .action(get);
 
-    program.parse(process.argv);
+    program
+        .command('ls')
+        .description('Prints names of created profiles')
+        .action(listProfiles);
 
-    if (program.args.length === 0) {
+    await program.parseAsync(process.argv);
+
+    if (program.rawArgs.length <= 2) {
         program.help();
     }
 }
