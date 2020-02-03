@@ -19,6 +19,11 @@ Open current profile (or specific profile) in editor
 dotenv-profiles open [PROFILE NAME]
 ```
 
+List profiles that have been created
+```
+dotenv-profiles ls
+```
+
 Read configuration from current profile
 ```
 dotenv-profile get BASE_URL__MY_APP
