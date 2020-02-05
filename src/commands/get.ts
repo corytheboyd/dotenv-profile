@@ -4,10 +4,10 @@ import { resolve } from 'path';
 import { homedir } from 'os';
 import { existsSync } from 'fs';
 import * as mkdirp from 'mkdirp';
+import { getActiveProfile } from '../store';
 
 export default async function(name: string): Promise<void> {
-    const config = new Configstore('dotenv-profile');
-    const activeProfile = config.get('activeProfile');
+    const activeProfile = getActiveProfile();
     const directory = resolve(homedir(), '.config', 'dotenv-profile');
     mkdirp.sync(directory);
     const fileName = `.env.${activeProfile}`;
