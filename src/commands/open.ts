@@ -1,13 +1,12 @@
 import * as openEditor from 'open-editor';
-import * as Configstore from "configstore";
 import { resolve } from 'path';
 import { homedir } from 'os';
 import { existsSync } from 'fs';
 import * as mkdirp from 'mkdirp';
-import { getActiveProfile } from '../store';
+import { store } from '../config';
 
 export default async function(): Promise<void> {
-    const activeProfile = getActiveProfile();
+    const activeProfile = store.getActiveProfile();
     const directory = resolve(homedir(), '.config', 'dotenv-profile');
     mkdirp.sync(directory);
     const fileName = `.env.${activeProfile}`;
