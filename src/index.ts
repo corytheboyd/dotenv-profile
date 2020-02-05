@@ -1,4 +1,4 @@
-import program from './cli';
+import { Command } from 'commander';
 import createProfile from './commands/create-profile';
 import setProfile from './commands/set-profile';
 import open from './commands/open';
@@ -6,6 +6,8 @@ import get from './commands/get';
 import listProfiles from './commands/list-profiles';
 
 export async function main(): Promise<void> {
+    const program = new Command();
+
     program
         .command('create-profile <profile>')
         .description('Create a new profile')

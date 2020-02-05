@@ -1,3 +1,7 @@
+export class StoreError extends Error {}
+export class ProfileNotFoundError extends StoreError {}
+export class ProfileAlreadyExistsError extends StoreError {}
+
 export interface Store {
     getActiveProfile:()=>string
 
