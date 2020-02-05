@@ -1,3 +1,3 @@
-import { Configstore } from './Store/Configstore';
+import { Configstore } from './store/Configstore';
 
 export const store = new Configstore();
