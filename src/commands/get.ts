@@ -7,5 +7,10 @@ export default async function(name: string): Promise<void> {
     if (result.error) {
         throw result.error;
     }
-    process.stdout.write(process.env[name] || '');
+    const value: any = process.env[name];
+    if (!value) {
+        process.stderr.write(`Value not found: ${name}\n`);
+        process.exit(1);
+    }
+    process.stdout.write(process.env[name] as string);
 }
