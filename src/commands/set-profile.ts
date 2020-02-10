@@ -1,5 +1,9 @@
-import { store } from "../config";
+import { store } from '../config';
 
 export default async function(profile: string): Promise<void> {
-    store.setActiveProfile(profile);
+    try {
+        store.setActiveProfile(profile);
+    } catch(error) {
+
+    }
 }

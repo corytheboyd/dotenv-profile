@@ -2,7 +2,7 @@ import * as Adapter from 'configstore';
 import {
     ProfileNotFoundError,
     ProfileAlreadyExistsError,
-    Store,
+    Store, Result,
 } from './Store';
 
 const STORE_NAME = 'dotenv-profile';
@@ -18,28 +18,48 @@ export class Configstore implements Store {
         this.store = new Adapter(STORE_NAME);
     }
 
-    getActiveProfile(): string {
-        return this.store.get(STORE_KEY.ACTIVE_PROFILE);
+    getActiveProfile(): Result<string> {
+        const value = this.get<string | void>(STORE_KEY.ACTIVE_PROFILE);
+        if (!value) {
+            return {
+                error: new ProfileNotFoundError(),
+            };
+        }
+        return {
+            value,
+        };
     }
 
-    setActiveProfile(profile: string): void {
+    setActiveProfile(profile: string) {
         const profiles = this.getAllProfiles();
         if (profiles.indexOf(profile) === -1) {
-            throw new ProfileNotFoundError(`Profile not found: ${profile}`);
+            return {
+                error: new ProfileNotFoundError(`Profile not found: ${profile}`),
+            };
         }
-        this.store.set(STORE_KEY.ACTIVE_PROFILE, profile)
+        this.store.set(STORE_KEY.ACTIVE_PROFILE, profile);
+        return {};
     }
 
-    getAllProfiles(): string[] {
-        const value = this.store.get(STORE_KEY.PROFILES);
+    getAllProfiles() {
+        const value = this.get<string[] | void>(STORE_KEY.PROFILES);
         if (!Array.isArray(value)) {
-            return [];
+            return {
+                value: [],
+            };
         }
-        return value;
+        return {
+            value,
+        };
     }
 
-    addNewProfile(profile: string): void {
-        const profiles = this.getAllProfiles();
+    addNewProfile(profile: string) {
+        const result = this.getAllProfiles();
+        if (result.error) {
+            return {
+                error: result.error,
+            };
+        }
         if (profiles.indexOf(profile) !== -1) {
             throw new ProfileAlreadyExistsError(`Profile already exists: ${profile}`);
         }
@@ -48,4 +68,8 @@ export class Configstore implements Store {
             profile,
         ]);
     };
+
+    private get<T>(key: string): T {
+        return <T>this.store.get(key);
+    }
 }
